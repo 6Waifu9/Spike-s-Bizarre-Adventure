@@ -4,46 +4,43 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private bool isMoving;
-    private Vector3 origPos, targetPos;
-    private float timeToMove = 0.2f;
+
+    public float moveSpeed = 5f;
+    public Transform movePoint;
+
+    public LayerMask whatStopsMovement;
+    void start() 
+    {
+        movePoint.parent = null;
+    }
+
+
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.W) && !isMoving)
-            StartCoroutine(MovePlayer(Vector3.up));
+        transform.position = Vector3.MoveTowards(transform.position, movePoint.position, moveSpeed * Time.deltaTime);
 
-        if (Input.GetKey(KeyCode.A) && !isMoving)
-            StartCoroutine(MovePlayer(Vector3.left));
-
-        if (Input.GetKey(KeyCode.S) && !isMoving)
-            StartCoroutine(MovePlayer(Vector3.down));
-
-        if (Input.GetKey(KeyCode.D) && !isMoving)
-            StartCoroutine(MovePlayer(Vector3.right));
-    }
-
-
-    private IEnumerator MovePlayer(Vector3 direction) 
-    {
-        isMoving = true;
-
-        float elapsedtime = 0;
-
-        origPos = transform.position;
-        targetPos = origPos + direction;
-
-
-        while (elapsedtime < timeToMove) 
+        if (Vector3.Distance(transform.position, movePoint.position) <= .05f) 
         {
-            transform.position = Vector3.Lerp(origPos, targetPos, (elapsedtime / timeToMove));
-            elapsedtime += Time.deltaTime;
-            yield return null;  
+            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f)
+            {
+                if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f), .2f, whatStopsMovement))
+                {
+                    movePoint.position += new Vector3(Input.GetAxisRaw("Horizontal"), 0f, 0f);
+                }
+                
+            }else if (Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f)
+            {
+                if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f,Input.GetAxisRaw("Vertical"), 0f), .2f, whatStopsMovement))
+                {
+                    movePoint.position += new Vector3(0f,Input.GetAxisRaw("Vertical"),0f);
+                }
+
+            }
         }
 
-        transform.position = targetPos;
-
-
-        isMoving = false;   
     }
+
+
+  
 }
