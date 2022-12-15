@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     public float moveSpeed = 5f;
     public Transform movePoint;
+    public AudioSource audioPlayer;
 
 
     public LayerMask whatStopsMovement;
@@ -37,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(horizontalInput, 0f, 0f), .2f, whatStopsMovement))
                 {
+                    audioPlayer.Play();
                     movePoint.position += new Vector3(horizontalInput, 0f, 0f);
                 }
 
@@ -44,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!Physics2D.OverlapCircle(movePoint.position + new Vector3(0f, verticalInput, 0f), .2f, whatStopsMovement))
                 {
+                    audioPlayer.Play();
                     movePoint.position += new Vector3(0f, verticalInput, 0f);
                 }
 
