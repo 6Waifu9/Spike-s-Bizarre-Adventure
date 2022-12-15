@@ -11,7 +11,7 @@ public class NextLevel : MonoBehaviour
     {
         if (collision.tag == "Player")
         {
-            SceneManager.LoadScene(sceneBuilIndex, LoadSceneMode.Single);
+            SceneManager.LoadScene("Level2");
         }
     }
 }
