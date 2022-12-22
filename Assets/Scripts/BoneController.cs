@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BoneController : MonoBehaviour
 {
-    private ScoreManager scoreManager;
+    //private ScoreManager scoreManager;
 
 
     private void Start() 
     {
-        scoreManager = GameObject.Find("Canvas").GetComponent<ScoreManager>();
+        //scoreManager = GameObject.Find("Canvas").GetComponent<ScoreManager>();
     }
     private void OnTriggerEnter2D(Collider2D collision) 
     {
@@ -17,7 +17,7 @@ public class BoneController : MonoBehaviour
         if (collision.tag == "Player") 
         {
             
-            scoreManager.score += 1f; 
+            GameManager.Instance.boneCount += 1; 
             Destroy(gameObject);
         }
     }
