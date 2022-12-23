@@ -5,22 +5,21 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
-
     public TMP_Text textScore;
     public float score;
-
 
 
     // Start is called before the first frame update
     void Start()
     {
         score= 0f;
-        textScore.text = score.ToString() + " Botjes";
+        //textScore.text = score.ToString() + " Botjes";
     }
 
     // Update is called once per frame
     void Update()
     {
-        textScore.text = score.ToString() + " Botjes";
+        Debug.Log(score);
+        textScore.text = GameManager.Instance.boneCount.ToString() + " Botjes";
     }
 }
